@@ -1,0 +1,16 @@
+.buttonClass {
+    background-color: #1B1B1B;
+    color: #FFA31A;
+    font-size: large;
+    font-family: "Orion Esperanto Dika", serif;
+    margin: 2.5%;
+}
+
+.divClass {
+    background-color: #FFA31A;
+    color: #1B1B1B;
+    font-size: large;
+    font-family: "Orion Esperanto Dika", serif;
+    margin: 2.5%;
+    padding: 1%;
+}
