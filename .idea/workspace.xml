@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2958cfb4-25d0-4ff7-a653-eff5c4cd5835" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/examples/api-implementation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/api-implementation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/examples/api-implementation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/examples/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/examples/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,23 +37,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "week-2-assignment",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\Vlad Ursache\\OneDrive - Technical University of Cluj-Napoca\\Desktop\\32\\.msg\\course-assignment-Vlad-34\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;week-2-assignment&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Vlad Ursache\\OneDrive - Technical University of Cluj-Napoca\\Desktop\\32\\.msg\\course-assignment-Vlad-34\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" engineId="bb231e14-98b4-49c9-9d9f-a3ee72505240" uri="http://localhost:63342/course-assignment-Vlad-34/examples/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -72,7 +73,8 @@
       <option name="presentableId" value="Default" />
       <updated>1680428902290</updated>
       <workItem from="1680428907005" duration="1788000" />
-      <workItem from="1680446025279" duration="2554000" />
+      <workItem from="1680446025279" duration="2999000" />
+      <workItem from="1680884817215" duration="690000" />
     </task>
     <servers />
   </component>
