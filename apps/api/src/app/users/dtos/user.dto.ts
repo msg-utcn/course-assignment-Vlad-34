@@ -1,4 +1,4 @@
-import {UserRole} from "../model/user-role";
+import { UserRole } from '../model/user-role';
 
 export class UserDto {
   id?: string;
@@ -7,12 +7,11 @@ export class UserDto {
   roles: UserRole[];
 
   constructor(values: Partial<UserDto>) {
-    if(values) {
+    if (values) {
       this.id = values.id;
       this.name = values.name;
       this.email = values.email;
       this.roles = values.roles;
     }
   }
-
 }
