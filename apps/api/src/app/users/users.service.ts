@@ -4,12 +4,15 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserModel } from './model/user.model';
 import { Repository } from 'typeorm';
 import { RegisterUserDto } from './dtos/register-user.dto';
 import { UserDto } from './dtos/user.dto';
-import { UserMapper } from './mappers/user.mapper';
+import { UserMapper } from './mapper/user.mapper';
+import { compare } from 'bcrypt';
+import { LoginUserDto } from './dtos/login-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -19,10 +22,10 @@ export class UsersService {
   ) {}
 
   async registerUser(dto: RegisterUserDto): Promise<UserDto> {
-    const model = UserMapper.mapRegisterToModel(dto);
+    const model = await UserMapper.mapRegisterToModel(dto);
     try {
       const savedModel = await this.userModelRepository.save(model);
-      return UserMapper.mapUserToDto(savedModel);
+      return UserMapper.mapToDto(savedModel);
     } catch (error) {
       Logger.log(error, 'UserService.register');
       throw new BadRequestException();
@@ -36,7 +39,7 @@ export class UsersService {
     if (!foundModel) {
       throw new NotFoundException();
     }
-    return UserMapper.mapUserToDto(foundModel);
+    return UserMapper.mapToDto(foundModel);
   }
 
   async getUserByEmail(email: string): Promise<UserDto> {
@@ -46,7 +49,7 @@ export class UsersService {
     if (!foundModel) {
       throw new NotFoundException();
     }
-    return UserMapper.mapUserToDto(foundModel);
+    return UserMapper.mapToDto(foundModel);
   }
 
   async getUsers(): Promise<UserDto[]> {
@@ -54,6 +57,16 @@ export class UsersService {
     if (!foundModels) {
       return [];
     }
-    return foundModels.map((model) => UserMapper.mapUserToDto(model));
+    return foundModels.map((model) => UserMapper.mapToDto(model));
+  }
+
+  async checkCredentials(loginUserDto: LoginUserDto): Promise<boolean> {
+    const foundModel = await this.userModelRepository.findOneBy({
+      email: loginUserDto.email,
+    });
+    if (!foundModel) {
+      return false;
+    }
+    return compare(loginUserDto.password, foundModel.password);
   }
 }

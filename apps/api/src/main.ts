@@ -9,6 +9,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { QuestionManagementConfig } from './app/question-management/question-management.config';
+import { AuthConfig } from './app/auth/auth.config';
+import { UsersConfig } from './app/users/users.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +23,9 @@ async function bootstrap() {
     .setDescription('The UTCN Course API for Question Management')
     .setVersion(version)
     .addTag(QuestionManagementConfig.SWAGGER_FEATURE)
+    .addTag(UsersConfig.SWAGGER_FEATURE)
+    .addTag(AuthConfig.SWAGGER_FEATURE)
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

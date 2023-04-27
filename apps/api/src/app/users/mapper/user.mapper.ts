@@ -1,12 +1,11 @@
-import { UserModel } from '../model/user.model';
-import { UserDto } from '../dtos/user.dto';
 import { RegisterUserDto } from '../dtos/register-user.dto';
+import { UserDto } from '../dtos/user.dto';
+import { UserModel } from '../model/user.model';
 import bcrypt from 'bcrypt';
 import { UserRole } from '../model/user-role';
-import { Logger } from '@nestjs/common';
 
 export class UserMapper {
-  static mapUserToDto(model: UserModel): UserDto {
+  static mapToDto(model: UserModel): UserDto {
     return new UserDto({
       id: model.id,
       name: model.name,
@@ -15,17 +14,12 @@ export class UserMapper {
     });
   }
 
-  static mapRegisterToModel(dto: RegisterUserDto): UserModel {
+  static async mapRegisterToModel(dto: RegisterUserDto): Promise<UserModel> {
     return new UserModel({
       id: undefined,
       name: dto.name,
       email: dto.email,
-      password: bcrypt.hash(dto.password, 12, (err, hash) => {
-        if (err) {
-          Logger.error(err);
-          return null;
-        }
-      }),
+      password: await bcrypt.hash(dto.password, 12),
       roles: [UserRole.USER],
     });
   }

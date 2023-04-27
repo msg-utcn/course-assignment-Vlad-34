@@ -1,4 +1,4 @@
-import { QuestionTopic } from '../model/question-topic';
+import { QuestionTopic } from '../models/question-topic';
 
 export class QuestionDto {
   id?: string;

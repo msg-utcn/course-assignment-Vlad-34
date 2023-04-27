@@ -1,5 +1,5 @@
 import { CreateQuestionDto } from '../dtos/create-question.dto';
-import { QuestionModel } from '../model/question.model';
+import { QuestionModel } from '../models/question.model';
 import { UpdateQuestionDto } from '../dtos/update-question.dto';
 import { QuestionDto } from '../dtos/question.dto';
 
