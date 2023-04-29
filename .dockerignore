@@ -1,0 +1,10 @@
+node_modules
+infrastructure
+docker
+.vscode
+.angular
+dist
+*.Dockerfile
+
+npm-debug.log
+yarn-error.log

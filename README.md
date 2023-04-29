@@ -1,71 +1,34 @@
-# Week 4
+# Week 6
 
 ## Setting Up 
 
-- Clone this week (branch: `week-4`) onto your computer and overwrite the code used in your personal repository (or follow the recordings and do the changes yourself)
-  - Take care to not overwrite the hidden `.git` folder
-- Run `npm install` inside the cloned folder
-- Go to `docker` folder and run a `docker-compose up -d` to start the database
-
-## Reading
-
-- [TypeORM Repository](https://docs.nestjs.com/techniques/database#repository-pattern)
-- [OpenAPI Types and Parameters](https://docs.nestjs.com/openapi/types-and-parameters)
-- [NestJs Providers](https://docs.nestjs.com/providers)
-- [Bcrypt Hashing](https://docs.nestjs.com/security/encryption-and-hashing#hashing)
+- Merge the MR with the assignment from the previous week
+- Continue from your repository `main` branch (take care you have the latest changes before you start to work `git fetch`, `git pull` on the `main` branch)
 
 ## Assignment
 
-- Create a new folder under `apps/api/app/` called `users`
-- Create a new module `users.module`
-- Create a new Model for a User and a new enum for User roles
-```typescript
-export enum UserRole {
-  USER = 'USER',
-  ADMIN = 'ADMIN'
-}
+- Get up to date with week 6 materials
+  - Have the previous week functionality (authentication, etc) 
+  - Have the one-to-many relation between question and answers
+  - Have the one-to-many relation between question and user
+  - Have the one-to-many relation between answer and question
+  - Have the services and controller functionality implemented
+  - Call me if you have any problems (send me a message on discord and we will sync)
+  - Open a Pull-Request with all your functionality and let me review it
 
-export class UserModel {
-  id?: string;
-  name: string;
-  email: string;
-  roles: UserRole[];
-}
-```
-- Annotate the model with TypeOrm Annotations
-- Create some DTO's for
-```typescript
-export class RegisterUserDto {
-  name: string;
-  email: string;
-  password: string;
-}
+## Bonus Assignment (Optional)
 
-export class UserDto {
-  id?: string;
-  name: string;
-  email: string;
-  roles: UserRole[];
-}
-```
-- Annotate and describe the DTO's with OpenAPI annotations (description, examples)
-- Create a service for users as a file `users.service` it will have the following methods
-  - registerUser 
-    - install bcrypt by running `npm install bcrypt` in the root directory
-    - use `bcrypt.hash(password, saltOrRounds)` where `saltOrRounds` is a random number
-    - replace the `RegisterUserDto.password` with the resulted hashed password
-    - save the user in the vault
-  - getUserById
-  - getUserByEmail
-  - getUsers
-- Create a controller for users as a file `users.controller` with the following endpoints
-  - getUserById
-  - getUsers
-  - registerUser
-- Annotate the Controller service with `@Controller` and `@ApiTags`
-- Make sure to import the `UsersController` and provide the `UsersService` in the `UsersModule`
-- Make sure to import the `TypeOrmModule.forFeature([UserModel])` inside the `UsersModule`
-- Make sure to import the `UsersModule` inside the `AppModule`
-- Add inside the `main.ts` the new OpenAPI tag for the Users feature
-- Start the application and test your functionality
-- Create a PR and add me as a reviewer
+This is a bonus assignment for those who have a little time. 
+
+The idea behind is to add authorization to our application such that only `Admin` users can remove question and answers. 
+We will implement a RBAC (Role-based access control) to define who can access what route.
+
+### Reading
+- [NestJS Authorization](https://docs.nestjs.com/security/authorization)
+
+### Assignment
+- Follow the reading material for the Basic RBAC implementation
+- Create a role decorator named `Roles`
+- Create a `RolesGuard` which checks the user roles for the decorator role
+- Add `RolesGuard` to the `UseGuards` annotation in the `QuestionManagementController`
+- Add your created decorator `Roles` to the `Delete` requests in the `QuestionManagementController`

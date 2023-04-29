@@ -5,22 +5,30 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QuestionModel } from './model/question.model';
 import { Repository } from 'typeorm';
-import { QuestionDto } from './dtos/question.dto';
-import { QuestionMapper } from './mappers/question.mapper';
-import { CreateQuestionDto } from './dtos/create-question.dto';
-import { UpdateQuestionDto } from './dtos/update-question.dto';
+import { QuestionModel } from '../model/question.model';
+import { QuestionDto } from '../dtos/question.dto';
+import { QuestionMapper } from '../mappers/question.mapper';
+import { CreateQuestionDto } from '../dtos/create-question.dto';
+import { UpdateQuestionDto } from '../dtos/update-question.dto';
+import { AnswerModel } from '../model/answer.model';
+import { UserModel } from '../../users/models/user.model';
 
 @Injectable()
 export class QuestionService {
   constructor(
     @InjectRepository(QuestionModel)
-    private questionModelRepository: Repository<QuestionModel>
+    private questionModelRepository: Repository<QuestionModel>,
+    @InjectRepository(AnswerModel)
+    private answerModelRepository: Repository<AnswerModel>,
+    @InjectRepository(UserModel)
+    private userModelRepository: Repository<UserModel>
   ) {}
 
   async readAll(): Promise<QuestionDto[]> {
-    const foundModels = await this.questionModelRepository.find();
+    const foundModels = await this.questionModelRepository.find({
+      relations: ['postedBy'],
+    });
     if (!foundModels) {
       return [];
     }
@@ -33,7 +41,13 @@ export class QuestionService {
   }
 
   async create(dto: CreateQuestionDto): Promise<QuestionDto> {
-    const model = QuestionMapper.mapCreateQuestionToModel(dto);
+    const userModel = await this.userModelRepository.findOneBy({
+      id: dto.postedBy,
+    });
+    if (!userModel) {
+      throw new NotFoundException();
+    }
+    const model = QuestionMapper.mapCreateQuestionToModel(dto, userModel);
     try {
       const savedModel = await this.questionModelRepository.save(model);
       return QuestionMapper.mapToDto(savedModel);
@@ -60,8 +74,11 @@ export class QuestionService {
   }
 
   async delete(id: string): Promise<void> {
+    const answerDeleteResult = await this.answerModelRepository.delete({
+      parent: { id },
+    });
     const deleteResult = await this.questionModelRepository.delete({ id });
-    if (deleteResult.affected === 0) {
+    if (deleteResult.affected === 0 && answerDeleteResult.affected === 0) {
       throw new BadRequestException();
     }
   }
@@ -69,6 +86,7 @@ export class QuestionService {
   private async readModelById(id: string): Promise<QuestionModel> {
     const foundModel = await this.questionModelRepository.findOne({
       where: { id },
+      relations: ['postedBy'],
     });
     if (!foundModel) {
       throw new NotFoundException();
