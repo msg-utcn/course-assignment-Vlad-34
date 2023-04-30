@@ -4,9 +4,10 @@ import { UsersConfig } from '../users.config';
 import { UserDto } from '../dto/user.dto';
 import { UsersService } from '../services/users.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../models/role.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags(UsersConfig.SWAGGER_FEATURE)
 @Controller(UsersConfig.API_ROUTE)
 export class UsersController {
