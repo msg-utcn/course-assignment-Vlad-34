@@ -8,9 +8,24 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - utcndb-volume:/var/lib/postgresql/data
-
+#  utcnapi:
+#    build:
+#      context: '../'
+#      dockerfile: 'Api.Dockerfile'
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      DATABASE_HOST: utcndb
+#      DATABASE_PORT: 5432
+#      DATABASE_USERNAME: postgres
+#      DATABASE_PASSWORD: postgres
+#      DATABASE_NAME: postgres
+#      PRODUCTION_FLAG: false
+#      JWT_SECRET: 2d519e67aac090efc1940f31e31ad8fee07545753d5e18f7ea5c082819df9a7a
+#    depends_on:
+#      - utcndb
 volumes:
   utcndb-volume:

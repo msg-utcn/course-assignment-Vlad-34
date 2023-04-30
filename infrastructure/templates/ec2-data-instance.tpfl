@@ -1,0 +1,48 @@
+#!/bin/bash
+
+yum update -y
+yum install docker git -y # install docker
+service docker start # start the docker service
+usermod -a -G docker ec2-user # grant permission for current user for docker
+
+yum install -y python3-pip # install python3 for installing docker-compose
+pip3 install --no-input docker-compose # install docker-compose
+
+
+cd /opt
+mkdir prod
+cd prod
+
+# Create docker-compose.yml to start DB and API
+# Note the DB should not be here (also the credentials should not be plaintext), doing this for presentation purpose
+cat <<-EOF > /opt/prod/docker-compose.yml
+version: "3.9"
+services:
+  utcndb:
+    restart: always
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+  api:
+    restart: always
+    image: ${ecr_api_image}
+    environment:
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: postgres
+      PRODUCTION_FLAG: "false"
+      JWT_SECRET: ${jwt_secret}
+    network_mode: "host"
+    depends_on:
+      - utcndb
+EOF
+
+# login to AWS ECR to be able to retrieve the API Docker Image
+aws ecr get-login-password --region ${ecr_region} | docker login --username AWS --password-stdin ${ecr_account_id}.dkr.ecr.${ecr_region}.amazonaws.com
+docker-compose up -d

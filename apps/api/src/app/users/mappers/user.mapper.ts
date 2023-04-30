@@ -1,32 +1,26 @@
-import { UserModel } from '../model/user.model';
-import { UserDto } from '../dtos/user.dto';
-import { RegisterUserDto } from '../dtos/register-user.dto';
-import bcrypt from 'bcrypt';
-import { UserRole } from '../model/user-role';
-import { Logger } from '@nestjs/common';
+import { UserDto } from '../dto/user.dto';
+import { UserModel } from '../models/user.model';
+import { RegisterUserDto } from '../dto/register-user.dto';
 
 export class UserMapper {
-  static mapUserToDto(model: UserModel): UserDto {
+  static mapToDto(model: UserModel): UserDto {
     return new UserDto({
       id: model.id,
-      name: model.name,
       email: model.email,
       roles: model.roles,
     });
   }
 
-  static mapRegisterToModel(dto: RegisterUserDto): UserModel {
+  static mapRegisterDtoToModel(
+    dto: RegisterUserDto,
+    hashedPassword: string
+  ): UserModel {
     return new UserModel({
       id: undefined,
       name: dto.name,
       email: dto.email,
-      password: bcrypt.hash(dto.password, 12, (err, hash) => {
-        if (err) {
-          Logger.error(err);
-          return null;
-        }
-      }),
-      roles: [UserRole.USER],
+      password: hashedPassword,
+      roles: undefined,
     });
   }
 }
