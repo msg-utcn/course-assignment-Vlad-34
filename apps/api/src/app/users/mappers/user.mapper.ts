@@ -20,7 +20,7 @@ export class UserMapper {
       name: dto.name,
       email: dto.email,
       password: hashedPassword,
-      roles: undefined,
+      roles: dto.roles,
     });
   }
 }

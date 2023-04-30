@@ -21,6 +21,8 @@ import { CreateAnswerDto } from './dtos/create-answer.dto';
 import { QuestionService } from './services/question.service';
 import { AnswerService } from './services/answer.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { UserRole } from '../users/models/user-role.model';
+import { Roles } from '../users/models/role.decorator';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -48,15 +50,16 @@ export class QuestionManagementController {
   }
 
   @Patch(':id')
-  async deleteQuestion(
+  async updateQuestion(
     @Param('id') id: string,
     @Body() dto: UpdateQuestionDto
   ): Promise<QuestionDto> {
     return this.questionService.update(id, dto);
   }
 
+  @Roles(UserRole.ADMIN)
   @Delete(':id')
-  async updateQuestion(@Param('id') id: string): Promise<void> {
+  async deleteQuestion(@Param('id') id: string): Promise<void> {
     return this.questionService.delete(id);
   }
 
@@ -84,6 +87,7 @@ export class QuestionManagementController {
     return this.answerService.update(answerId, answerDto);
   }
 
+  @Roles(UserRole.ADMIN)
   @ApiImplicitParam({ name: 'answerId', type: String })
   @Delete(':questionId/answers/:answerId')
   async deleteAnswer(@Param('answerId') answerId: string): Promise<void> {
