@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateAnswerDto {
   @IsNotEmpty()
@@ -10,13 +10,15 @@ export class CreateAnswerDto {
   })
   content: string;
 
+  @IsUUID()
   @ApiProperty({
-    description: 'The UUIDr of the User who posted the question',
+    description: 'The UUID of the User who posted the question',
     example: 'be238107-891e-4f73-b5e9-82449a856b84',
     required: true,
   })
   postedBy: string;
 
+  @IsUUID()
   @ApiProperty({
     description: 'The UUID of the question',
     example: '599c9544-d8da-4761-a17f-d9c21eb5869c',

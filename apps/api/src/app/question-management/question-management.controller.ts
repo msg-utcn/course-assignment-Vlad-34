@@ -23,9 +23,10 @@ import { AnswerService } from './services/answer.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserRole } from '../users/models/user-role.model';
 import { Roles } from '../users/models/role.decorator';
+import { RolesGuard } from '../users/models/role.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags(QuestionManagementConfig.SWAGGER_FEATURE)
 @Controller(QuestionManagementConfig.API_ROUTE)
 export class QuestionManagementController {
