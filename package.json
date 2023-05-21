@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve:api": "nx serve api",
     "serve:ui": "nx serve ui",
-    "build:api:prod": "nx build api --configuration=production"
+    "serve:api": "nx serve api",
+    "build:api:prod": "nx build api --configuration=production",
+    "build:ui:prod": "nx build ui --configuration=production"
   },
   "private": true,
   "devDependencies": {
@@ -54,15 +55,17 @@
     "typescript": "~4.9.5"
   },
   "dependencies": {
-    "@angular/animations": "~15.2.0",
+    "@angular/animations": "^15.2.9",
+    "@angular/cdk": "^15.2.9",
     "@angular/common": "~15.2.0",
     "@angular/compiler": "~15.2.0",
     "@angular/core": "~15.2.0",
+    "@angular/flex-layout": "^15.0.0-beta.42",
     "@angular/forms": "~15.2.0",
+    "@angular/material": "^15.2.9",
     "@angular/platform-browser": "~15.2.0",
     "@angular/platform-browser-dynamic": "~15.2.0",
     "@angular/router": "~15.2.0",
-    "@casl/ability": "^6.5.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",

@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import { AuthenticateModel } from '../../data-models/authenticate.model';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {RegisterService} from "@course-project/auth";
+import {RegisterModel} from "@course-project/data-models";
 
 @Component({
   selector: 'course-project-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
-  register(authenticate: AuthenticateModel): void {
-    console.log(authenticate);
+  constructor(private registerService: RegisterService) {}
+
+  public register(register: RegisterModel): void {
+    this.registerService.register(register).subscribe();
   }
 }
