@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator';
-import { UserRole } from '../models/user-role.model';
 
 export class RegisterUserDto {
   @IsNotEmpty()
@@ -26,12 +25,4 @@ export class RegisterUserDto {
     required: true,
   })
   password: string;
-
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'The roles of the user',
-    example: [UserRole.USER],
-    required: true,
-  })
-  roles: UserRole[];
 }
